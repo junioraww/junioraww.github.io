@@ -525,10 +525,12 @@ function updateCard(project, randomizeSnippet = true) {
     cardActions.innerHTML = (project.links || []).map(link => `
         <a class="pill-btn" href="${link.url}" target="_blank" rel="noopener noreferrer">
             <span>${link.label}</span>
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="2" y1="10" x2="10" y2="2"></line>
-                <polyline points="4 2 10 2 10 8"></polyline>
-            </svg>
+            <span class="pill-arrow">
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="2" y1="10" x2="10" y2="2"></line>
+                    <polyline points="4 2 10 2 10 8"></polyline>
+                </svg>
+            </span>
         </a>
     `).join('');
 

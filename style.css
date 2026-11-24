@@ -66,7 +66,7 @@ a {
 }
 
 .portfolio-container.card-closed {
-    transform: translateX(213.5px);
+    transform: translateX(206px);
 }
 
 #projects-column {
@@ -174,16 +174,15 @@ a {
 
 .preview-card {
     position: relative;
-    width: 395px;
-    height: 270px;
+    width: 380px;
+    height: 236px;
     background-color: #161722;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    padding: 16px 18px;
+    border-radius: 16px;
+    padding: 12px 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.48);
     opacity: 1;
     transform: scale(1);
     transition: opacity 0.25s ease, transform 0.25s ease;
@@ -211,14 +210,14 @@ a {
 }
 
 .card-header {
-    height: 24px;
+    height: 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .card-title {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     color: #ffffff;
     letter-spacing: -0.2px;
@@ -231,7 +230,7 @@ a {
 }
 
 #card-commit {
-    font-size: 12px;
+    font-size: 11.5px;
     font-family: 'JetBrains Mono', monospace;
     color: #6d7184;
     letter-spacing: 0.2px;
@@ -241,9 +240,9 @@ a {
     background: none;
     border: none;
     color: #6d7184;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
-    padding: 4px 6px;
+    padding: 2px 4px;
     line-height: 1;
     display: flex;
     align-items: center;
@@ -253,31 +252,31 @@ a {
 
 .code-box {
     width: 100%;
-    height: 146px;
+    height: 128px;
     background-color: #0e0f17;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 8px 12px;
+    border-radius: 10px;
+    padding: 6px 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .code-header {
-    height: 20px;
+    height: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .code-path {
-    font-size: 11.5px;
+    font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
     color: #6d7184;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 320px;
+    max-width: 310px;
 }
 
 .code-reroll {
@@ -288,7 +287,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
+    padding: 3px;
     border-radius: 4px;
     transition: color 0.15s ease, background-color 0.15s ease;
     touch-action: manipulation;
@@ -300,7 +299,7 @@ a {
 }
 
 .code-viewport {
-    height: 104px;
+    height: 94px;
     overflow: hidden;
     position: relative;
 }
@@ -309,8 +308,8 @@ a {
     margin: 0;
     padding: 0;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    line-height: 1.52;
+    font-size: 11px;
+    line-height: 1.48;
     color: #c5c9d6;
     white-space: pre;
     overflow: hidden;
@@ -365,23 +364,23 @@ a {
 }
 
 .card-actions {
-    height: 32px;
+    height: 28px;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .pill-btn {
-    height: 30px;
-    padding: 0 13px;
+    height: 28px;
+    padding: 0 11px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     background: #20222f;
     border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 8px;
+    border-radius: 7px;
     color: #c4c8d4;
-    font-size: 12.5px;
+    font-size: 12px;
     font-family: 'Inter', sans-serif;
     text-decoration: none;
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
@@ -389,9 +388,21 @@ a {
     touch-action: manipulation;
 }
 
-.pill-btn svg {
+.pill-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    will-change: transform;
+    transform: translate(0, 0);
+    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.pill-arrow svg {
+    display: block;
+    flex-shrink: 0;
     color: #7d8296;
-    transition: color 0.15s ease, transform 0.15s ease;
+    transition: color 0.15s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -422,9 +433,12 @@ a {
         border-color: rgba(255, 255, 255, 0.16);
     }
 
-    .pill-btn:hover svg {
+    .pill-btn:hover .pill-arrow {
+        transform: translate(1.5px, -1.5px);
+    }
+
+    .pill-btn:hover .pill-arrow svg {
         color: #ffffff;
-        transform: translate(1px, -1px);
     }
 }
 
@@ -445,15 +459,15 @@ a {
 
     .portfolio-container {
         flex-direction: column;
-        gap: 16px;
+        gap: 14px;
         transform: translateY(0);
         width: 100%;
-        max-width: 395px;
+        max-width: 380px;
         margin: auto;
     }
 
     .portfolio-container.card-closed {
-        transform: translateY(143px);
+        transform: translateY(125px);
     }
 
     #projects-column {
@@ -462,9 +476,9 @@ a {
 
     .preview-card {
         width: 100%;
-        max-width: 395px;
-        height: 270px;
-        padding: 16px 18px;
+        max-width: 380px;
+        height: 236px;
+        padding: 12px 16px;
         opacity: 1;
         transform: translateY(0) scale(1);
         transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1);
