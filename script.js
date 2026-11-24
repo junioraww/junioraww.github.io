@@ -1,7 +1,7 @@
 const container = document.getElementById('scene-container');
 let scene, camera, renderer, clock, mixer;
 let foxModel = null;
-let actions = {}; // { idle, walk, run }
+let actions = {};
 let currentAction = null;
 
 const ORTHO_ZOOM = 6;
@@ -25,7 +25,7 @@ const flatGrayMaterial = new THREE.MeshBasicMaterial({
 
 function init() {
     scene = new THREE.Scene();
-    clock = new THREE.Clock(); // для AnimationMixer и расчёта движения
+    clock = new THREE.Clock();
     
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -33,12 +33,12 @@ function init() {
     
     const aspect = window.innerWidth / window.innerHeight;
     camera = new THREE.OrthographicCamera(
-        -ORTHO_ZOOM * aspect, // left
-        ORTHO_ZOOM * aspect,  // right
-        ORTHO_ZOOM,           // top
-        -ORTHO_ZOOM,          // bottom
-        -100,                 // near
-        1000                  // far
+        -ORTHO_ZOOM * aspect,
+        ORTHO_ZOOM * aspect,
+        ORTHO_ZOOM,
+        -ORTHO_ZOOM,
+        -100,
+        1000
     );
     
     camera.position.set(0, 5, 5.77);
@@ -60,6 +60,8 @@ function init() {
     loadFoxModel();
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('touchstart', onTouchMove, { passive: true });
   
     animate();
 }
@@ -71,13 +73,12 @@ function loadFoxModel() {
         foxModel.scale.set(1, 1, 1);
         foxModel.position.set(0, 0, 0);
         foxModel.traverse(child => {
-            if (child.isMesh) { // SkinnedMesh = isMesh
+            if (child.isMesh) {
                 child.material = flatGrayMaterial;
             }
         });
         scene.add(foxModel);
         mixer = new THREE.AnimationMixer(foxModel);
-        console.log("Доступные анимации:", gltf.animations)
         const animNames = { idle: 'Idle', walk: 'Walk', run: 'Gallop' };
         actions.idle = mixer.clipAction(gltf.animations.find(clip => clip.name === animNames.idle));
         actions.walk = mixer.clipAction(gltf.animations.find(clip => clip.name === animNames.walk));
@@ -87,8 +88,6 @@ function loadFoxModel() {
         });
         currentAction = actions.idle;
         currentAction.play();
-    }, undefined, (error) => {
-        console.error('Ошибка при загрузке модели:', error);
     });
 }
 
@@ -109,6 +108,19 @@ function onMouseMove(event) {
     const intersects = raycaster.intersectObject(intersectionPlane);
     if (intersects.length > 0) {
         targetPosition.copy(intersects[0].point);
+    }
+}
+
+function onTouchMove(event) {
+    if (event.touches.length > 0) {
+        const touch = event.touches[0];
+        mousePos.x = (touch.clientX / window.innerWidth) * 2 - 1;
+        mousePos.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mousePos, camera);
+        const intersects = raycaster.intersectObject(intersectionPlane);
+        if (intersects.length > 0) {
+            targetPosition.copy(intersects[0].point);
+        }
     }
 }
 
@@ -159,5 +171,4 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-// Запускаем!
 init();
